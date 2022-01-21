@@ -25,16 +25,18 @@ TEST_HOST = 'www.google.com'
 
 class TestModes(Enum):
 	NETWORKMONITOR	= 0
-	PING			= 1
+	PING		= 1
+	NONE		= 2
 
 
 class ConnectivityTest:
 	def __init__(self, testmode):
 		self._testmode = testmode
-		self._monitor = None
-		
+		self._monitor = None	
 		
 	def is_offline(self):
+		if self._testmode == TestModes.NONE:
+			return False;
 		if self._testmode == TestModes.NETWORKMONITOR:
 			if self._monitor == None:
 				# The monitor instance is based on NetworkManager if available, 
